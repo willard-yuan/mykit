@@ -41,10 +41,9 @@ std::string base_name(std::string const & path, std::string const & delims){
 // Remove extension from a base name
 // Usage: remove_extension("123.jpg")
 // Output: 123
-template<class T>
-T remove_extension(T const & filename){
-    typename T::size_type const p(filename.find_last_of('.'));
-    return p > 0 && p != T::npos ? filename.substr(0, p) : filename;
+std::string remove_extension(std::string const & filename){
+    typename std::string::size_type const p(filename.find_last_of('.'));
+    return p > 0 && p != std::string::npos ? filename.substr(0, p) : filename;
 }
 
 
