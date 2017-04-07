@@ -34,8 +34,7 @@ std::vector<std::string> glob_vector(const std::string& pattern){
 // Get base name from a full path
 // Usage: base_name("/xxx/xxx/123.jpg")
 // Output: 123.jpg
-template<class T>
-T base_name(T const & path, T const & delims){
+std::string base_name(std::string const & path, std::string const & delims){
     return path.substr(path.find_last_of(delims) + 1);
 }
 
