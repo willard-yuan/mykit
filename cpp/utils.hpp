@@ -13,6 +13,7 @@
 #include <sstream>
 #include <vector>
 #include <numeric>
+#include <algorithm>
 
 /***************************
  * File processing functions
