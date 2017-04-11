@@ -52,10 +52,25 @@ std::string remove_extension(std::string const & filename){
  ***************************/
 
 // Compute cosine similarity between two vectors
-float cosine_similarity(std::vector<float> v1, std::vector<float> v2){
+float cosine_similarity(std::vector<float> &v1, std::vector<float> &v2){
     float dot = 0.0, denom_a = 0.0, denom_b = 0.0 ;
     dot = std::inner_product( v1.begin(), v1.end(), v2.begin(), 0.0 );
     denom_a = std::inner_product( v1.begin(), v1.end(), v1.begin(), 0.0 );
     denom_b = std::inner_product( v2.begin(), v2.end(), v2.begin(), 0.0 );
     return dot / (sqrt(denom_a) * sqrt(denom_b));
+}
+
+// Normalize vector by L2 norm
+std::vector<float> nomalize_vecotor(std::vector<float> &v){
+    std::vector<float> v_norm;
+    float denom_v = std::inner_product( v.begin(), v.end(), v.begin(), 0.0 );
+    if (0.0 != denom_v){
+        for (auto it = v.begin(); it != v.end(); it++){
+            float tmp = (*it)/sqrt(denom_v);
+            v_norm.push_back(tmp);
+        }
+    }else{
+        v_norm = v;
+    }
+    return v_norm;
 }

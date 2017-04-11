@@ -29,6 +29,7 @@ std::string remove_extension(std::string const & filename);
  * Math processing functions
  ***************************/
 
-float cosine_similarity(std::vector<float> v1, std::vector<float> v2);
+float cosine_similarity(std::vector<float> &v1, std::vector<float> &v2);
+std::vector<float> nomalize_vecotor(std::vector<float> &v);
 
 #endif /* utils_hpp */
