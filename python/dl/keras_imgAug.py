@@ -19,18 +19,19 @@ datagen = ImageDataGenerator(
         fill_mode = 'nearest')
 
 sub_dirs = os.walk(target_path_dir).next()[1]
-for sub_dir in sub_dirs:
+for k, sub_dir in enumerate(sub_dirs):
+    print 'to be processed: %s (%d/%d), contains images: %d' % (sub_dirs, k+1, len(sub_dirs), sub_dir, len(img_basenames))
     sub_dir_full = os.path.join(target_path_dir, sub_dir)
     img_basenames = os.listdir(sub_dir_full)
     num_imgs = len(img_basenames)
     num_perAug = int(float(num_wanted)/float(num_imgs)) - 1
     if num_imgs >= num_wanted:
         continue
-    num_total = 0    
+    num_total = 0
     for i, img_basename in enumerate(img_basenames):
         num_total = num_imgs + i*num_perAug
         if num_total >= num_wanted:
-            break 
+            break
         img_path = os.path.join(sub_dir_full, img_basename)
         #print "Aug: %s" % img_path
         img = load_img(img_path) # this is a PIL image, please replace to your own file path
@@ -46,7 +47,7 @@ for sub_dir in sub_dirs:
                     break # otherwise the generator would loop indefinitely
         except:
             print "%s" % img_path
-    
+
 # delete extra aug images
 for sub_dir in sub_dirs:
     sub_dir_full = os.path.join(target_path_dir, sub_dir)
