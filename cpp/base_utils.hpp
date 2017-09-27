@@ -1,13 +1,25 @@
 
-#include "utils.hpp"
+#ifndef utils_hpp
+#define utils_hpp
 
-/***************************
+#include <stdio.h>
+#include <glob.h>
+#include <math.h>
+#include <string>
+#include <sstream>
+#include <sstream>
+#include <iomanip>
+#include <vector>
+#include <numeric>
+#include <algorithm>
+
+/**********************************************
  * File processing functions
- ***************************/
+ **********************************************/
 
 // Split string by special char, such as by space
 // Usage: split("hello world", ' ')
-std::vector<std::string> split(const std::string &s, char delim) {
+std::vector<std::string> split_string(const std::string &s, char delim) {
     std::vector<std::string> elems;
     std::stringstream ss(s);
     std::string item;
@@ -16,6 +28,18 @@ std::vector<std::string> split(const std::string &s, char delim) {
     }
     return elems;
 }
+
+// Split string by special char, such as by space
+std::vector<float> split_float(const std::string &s, char delim) {
+    std::stringstream ss(s);
+    std::string item;
+    std::vector<float> tokens;
+    while (getline(ss, item, delim)) {
+        tokens.push_back(stof(item));
+    }
+    return tokens;
+}
+
 
 // Get the files full paths from directory
 std::vector<std::string> glob_vector(const std::string& pattern){
@@ -63,9 +87,9 @@ void SplitString(const std::string& s, std::vector<std::string>& v, const std::s
 }
 
 
-/***************************
+/**********************************************
  * Math processing functions
- ***************************/
+ **********************************************/
 
 // Compute cosine similarity between two vectors
 float cosine_similarity(std::vector<float> &v1, std::vector<float> &v2){
@@ -90,3 +114,5 @@ std::vector<float> nomalize_vecotor(std::vector<float> &v){
     }
     return v_norm;
 }
+
+#endif /* utils_hpp */
