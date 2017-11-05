@@ -51,4 +51,18 @@ cv::PCA loadPCA(std::string &filename){
     return pca;
 }
 
+/* L2 normalize of opencv Mat,
+ * each row is a sample
+ */
+cv::Mat l2norm(cv::Mat data){
+    for(int i = 0; i < data.rows; i++){
+        cv::Mat norm_mat = sqrt(data.row(i)*data.row(i).t());
+        float denorm_v = std::max(1e-12, norm_mat.at<float>(0, 0));
+        for (int j = 0; j < data.cols; j++){
+            data.at<float>(i, j) = data.at<float>(i, j)/denorm_v;
+        }
+    }
+    return data;
+}
+
 #endif /* opencv_utils_hpp */

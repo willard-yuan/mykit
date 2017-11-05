@@ -86,6 +86,20 @@ void SplitString(const std::string& s, std::vector<std::string>& v, const std::s
         v.push_back(s.substr(pos1));
 }
 
+// os path join
+// Ex: /tmp/test/, 1.txt ---> /tmp/test/1.txt
+std::string pathAppend(const std::string& p1, const std::string& p2) {
+    char sep = '/';
+    std::string tmp = p1;
+#ifdef _WIN32
+    sep = '\\';
+#endif
+    if (p1[p1.length()] != sep) { // Need to add a
+        tmp += sep;                // path separator
+        return(tmp + p2);
+    }else
+        return(p1 + p2);
+}
 
 /**********************************************
  * Math processing functions
@@ -103,14 +117,11 @@ float cosine_similarity(std::vector<float> &v1, std::vector<float> &v2){
 // Normalize vector by L2 norm
 std::vector<float> nomalize_vecotor(std::vector<float> &v){
     std::vector<float> v_norm;
-    float denom_v = std::inner_product( v.begin(), v.end(), v.begin(), 0.0 );
-    if (0.0 != denom_v){
-        for (auto it = v.begin(); it != v.end(); it++){
-            float tmp = (*it)/sqrt(denom_v);
-            v_norm.push_back(tmp);
-        }
-    }else{
-        v_norm = v;
+    float norm_v = sqrt(std::inner_product( v.begin(), v.end(), v.begin(), 0.0 ));
+    float denorm_v = std::max(1e-12, norm_v);
+    for (auto it = v.begin(); it != v.end(); it++){
+        float tmp = (*it)/denorm_v;
+        v_norm.push_back(tmp);
     }
     return v_norm;
 }
