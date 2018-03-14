@@ -1,12 +1,11 @@
 
 #include <iostream>
 #include <string>
-#include <numeric>    //inner_product
-#include <functional> //plus, equal_to, not2
 
 #include <opencv2/opencv.hpp>
 #include <opencv2/core/core.hpp>
 
+// Function: compute DCT of an image
 static inline void imgDct(const cv::Mat& image, cv::Mat& dct) {
     cv::Mat imgGray;
     cv::cvtColor(image, imgGray, CV_BGR2GRAY);
@@ -15,6 +14,7 @@ static inline void imgDct(const cv::Mat& image, cv::Mat& dct) {
     cv::dct(imgGray, dct);
 }
 
+// Function: compute image PHash
 static inline int pHash(const cv::Mat& im, uint64 &hash, int cons) {
     if (im.empty()) {
         return 0;
@@ -58,6 +58,7 @@ static inline int pHash(const cv::Mat& im, uint64 &hash, int cons) {
     return 1;
 }
 
+// Function: decimal number to binary
 void decimal2Binary(uint64_t number, int len)
 {
     char bitset[len];
@@ -76,6 +77,7 @@ void decimal2Binary(uint64_t number, int len)
     }
 }
 
+// Function: fast compute hamming distance
 static inline int distanceHamm(uint64 h1, uint64 h2) {
     uint64 h = h1^h2;
     int hammdis = 0;
