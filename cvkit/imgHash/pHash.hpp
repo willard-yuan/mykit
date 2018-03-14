@@ -58,6 +58,24 @@ static inline int pHash(const cv::Mat& im, uint64 &hash, int cons) {
     return 1;
 }
 
+void decimal2Binary(uint64_t number, int len)
+{
+    char bitset[len];
+    for(uint64_t i=0; i<len; ++i)
+    {
+        if((number & (static_cast<uint64_t>(1) << i)) != 0)
+        {
+            bitset[len-i-1] = '1';
+        }else{
+            bitset[len-i-1] = '0';
+        }
+    }
+    for(uint64_t i = 0; i < len; ++i)
+    {
+        cout << bitset[i];
+    }
+}
+
 static inline int distanceHamm(uint64 h1, uint64 h2) {
     uint64 h = h1^h2;
     int hammdis = 0;
