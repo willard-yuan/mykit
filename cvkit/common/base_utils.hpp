@@ -40,7 +40,6 @@ std::vector<float> split_float(const std::string &s, char delim) {
     return tokens;
 }
 
-
 // Get the files full paths from directory
 std::vector<std::string> glob_vector(const std::string& pattern){
     glob_t glob_result;
@@ -124,6 +123,23 @@ std::vector<float> nomalize_vecotor(std::vector<float> &v){
         v_norm.push_back(tmp);
     }
     return v_norm;
+}
+
+/**********************************************
+ * IO functions
+**********************************************/
+
+// read binary file from file
+vector<float> readBin(std::string file)
+{
+    vector<float> feat;
+    std::ifstream ifs(file, std::ios::binary);
+    float value = 0;
+    while (!ifs.eof() && ifs.peek() != EOF) {
+        ifs.read((char*)&value, sizeof(float));
+        feat.push_back(value);
+    }
+    return feat;
 }
 
 #endif /* utils_hpp */
